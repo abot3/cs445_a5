@@ -72,6 +72,8 @@ def video2imageFolder(input_file, output_path):
             continue
 
         out_name = os.path.join(output_path, 'f{:04d}.jpg'.format(frame_idx+1))
+        if frame.shape[0] > 640 and frame.shape != (480, 272):
+          frame = cv2.resize(frame, (480, 272)) 
         ret = cv2.imwrite(out_name, frame)
         if not ret:
             print ("Failed to write the frame {}".format(frame_idx))
